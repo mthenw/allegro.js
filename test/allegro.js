@@ -19,8 +19,8 @@ describe('Allegro', function () {
     });
 
     it('should return error when creating soap client failed', function () {
-        allegro.createClient({key: 'key', wsdl: 'dontexists'}, function (err, client) {
+        allegro.createClient({key: 'key', wsdl: 'dontexists'}, function (err) {
             err.should.be.an.instanceOf(Error);
-        })
+        });
     });
 });
