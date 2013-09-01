@@ -5,10 +5,10 @@ var Client = require('../lib/client');
 describe('Allegro', function () {
     'use strict';
 
-    it('should throw error if no api key provided for creating client', function () {
-        (function () {
-            allegro.createClient();
-        }).should.throwError('No WebAPI key provided');
+    it('should return an error if no api key provided for creating client', function () {
+        allegro.createClient(null, function (err) {
+            err.should.be.an.instanceOf(Error);
+        });
     });
 
     it('should create client instance', function (done) {
@@ -18,7 +18,7 @@ describe('Allegro', function () {
         });
     });
 
-    it('should return error when creating soap client failed', function () {
+    it('should return an error when creating soap client failed', function () {
         allegro.createClient({key: 'key', wsdl: 'dontexists'}, function (err) {
             err.should.be.an.instanceOf(Error);
         });
