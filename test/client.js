@@ -70,7 +70,12 @@ describe('Client', function () {
             });
 
             var doShowItemInfoExtStub = sinon.stub(soapClient, 'doShowItemInfoExt');
-            doShowItemInfoExtStub.callsArgWith(1, null, {'itId': 1, 'itName': 'Item'});
+            doShowItemInfoExtStub.callsArgWith(1, null, {
+                itemListInfoExt: {
+                    itId: 1,
+                    itName: 'Item'
+                }
+            });
 
             var client = new Client({
                 soapClient: soapClient,
@@ -83,11 +88,11 @@ describe('Client', function () {
             client.getItem(2, function () {
                 doLoginEncStub.calledOnce.should.equal(true);
                 doLoginEncStub.calledWith({
-                    'userLogin': 'testuser',
-                    'userHashPassword': 'XohImNooBHFR0OVvjcYpJ3NgPQ1qq73WKhHvch0VQtg=',
-                    'countryCode': 1,
-                    'webapiKey': 'key',
-                    'localVersion': '1377862002'
+                    userLogin: 'testuser',
+                    userHashPassword: 'XohImNooBHFR0OVvjcYpJ3NgPQ1qq73WKhHvch0VQtg=',
+                    countryCode: 1,
+                    webapiKey: 'key',
+                    localVersion: '1377862002'
                 }).should.equal(true);
                 done();
             });
@@ -98,14 +103,16 @@ describe('Client', function () {
         soap.createClient(__dirname + '/webapi.wsdl', function (err, soapClient) {
             var doLoginEncStub = sinon.stub(soapClient, 'doLoginEnc');
             doLoginEncStub.callsArgWith(1, null, {
-                'sessionHandlePart': 'session1',
-                'userId': 1
+                sessionHandlePart: 'session1',
+                userId: 1
             });
 
             var doShowItemInfoExtStub = sinon.stub(soapClient, 'doShowItemInfoExt');
             doShowItemInfoExtStub.callsArgWith(1, null, {
-                'itId': 2,
-                'itName': 'Test item'
+                itemListInfoExt: {
+                    itId: 2,
+                    itName: 'Test item'
+                }
             });
 
             var client = new Client({
@@ -119,8 +126,8 @@ describe('Client', function () {
             client.getItem(2, function (err, item) {
                 doShowItemInfoExtStub.calledOnce.should.equal(true);
                 doShowItemInfoExtStub.calledWith({
-                    'sessionHandle': 'session1',
-                    'itemId': 2
+                    sessionHandle: 'session1',
+                    itemId: 2
                 }).should.equal(true);
 
                 item.should.be.instanceOf(Item);
