@@ -41,7 +41,7 @@ describe('Client', function () {
 
             var client = new Client({soapClient: soapClient, key: 'key', countryId: 1});
             client.getUser(123, function (err, user) {
-                doShowUserStub.calledOnce.should.be.true;
+                doShowUserStub.calledOnce.should.equal(true);
                 user.should.be.an.instanceOf(User);
                 user.id.should.equal(123);
                 user.login.should.equal('Test user');
@@ -80,15 +80,15 @@ describe('Client', function () {
                 password: 'password'
             });
 
-            client.getItem(2, function (err, item) {
-                doLoginEncStub.calledOnce.should.be.true;
+            client.getItem(2, function () {
+                doLoginEncStub.calledOnce.should.equal(true);
                 doLoginEncStub.calledWith({
-                   'userLogin': 'testuser',
-                   'userHashPassword': 'XohImNooBHFR0OVvjcYpJ3NgPQ1qq73WKhHvch0VQtg=',
-                   'countryCode': 1,
-                   'webapiKey': 'key',
-                   'localVersion': '1377862002'
-                }).should.be.true;
+                    'userLogin': 'testuser',
+                    'userHashPassword': 'XohImNooBHFR0OVvjcYpJ3NgPQ1qq73WKhHvch0VQtg=',
+                    'countryCode': 1,
+                    'webapiKey': 'key',
+                    'localVersion': '1377862002'
+                }).should.equal(true);
                 done();
             });
         });
@@ -117,11 +117,11 @@ describe('Client', function () {
             });
 
             client.getItem(2, function (err, item) {
-                doShowItemInfoExtStub.calledOnce.should.be.true;
+                doShowItemInfoExtStub.calledOnce.should.equal(true);
                 doShowItemInfoExtStub.calledWith({
-                   'sessionHandle': 'session1',
-                   'itemId': 2
-                }).should.be.true;
+                    'sessionHandle': 'session1',
+                    'itemId': 2
+                }).should.equal(true);
 
                 item.should.be.instanceOf(Item);
                 item.id.should.be.equal(2);
