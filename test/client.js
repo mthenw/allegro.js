@@ -34,17 +34,13 @@ describe('Client', function () {
     it('should return user model by user id', function (done) {
         soap.createClient(__dirname + '/webapi.wsdl', function (err, soapClient) {
             var doShowUserStub = sinon.stub(soapClient, 'doShowUser');
-            doShowUserStub.callsArgWith(1, null, {
-                'userId': 123,
-                'userLogin': 'Test user'
-            });
+            doShowUserStub.callsArgWith(1, null, {userId: 1});
 
             var client = new Client({soapClient: soapClient, key: 'key', countryId: 1});
-            client.getUser(123, function (err, user) {
+            client.getUser(1, function (err, user) {
                 doShowUserStub.calledOnce.should.equal(true);
                 user.should.be.an.instanceOf(User);
-                user.id.should.equal(123);
-                user.login.should.equal('Test user');
+                user.id.should.equal(1);
                 done();
             });
         });
