@@ -68,7 +68,7 @@ allegro.createClient({ … }, function (error, client) {
 
 ### getItem(itemId, callback)
 
-Get [Item](#Item) instance by id and pass to callback.
+Get [Item](#item) instance by id and pass to callback.
 
 #### Example
 
@@ -83,7 +83,7 @@ allegro.createClient({ … }, function (error, client) {
 
 ### getUser(userId, callback)
 
-Get [User](#User) instance by id and pass to callback.
+Get [User](#user) instance by id and pass to callback.
 
 #### Example
 
