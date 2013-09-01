@@ -1,5 +1,5 @@
 require('should');
-var Category = require('../../lib/model/Category');
+var Category = require('../../lib/model/category');
 
 describe('Category', function () {
     'use strict';
