@@ -24,8 +24,6 @@ allegro.createClient({ key: 'your_webapi_key'}, function (err, client) {
 
 ## allegro
 
----
-
 ### createClient(options, callback)
 
 Creates API client. Available options:
@@ -52,8 +50,6 @@ allegro.createClient({ key: 'your_webapi_key'}, function (error, client) {
 ```
 
 ## Client
-
----
 
 ### getCategory(categoryId, callback)
 
