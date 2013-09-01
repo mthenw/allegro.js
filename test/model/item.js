@@ -6,11 +6,17 @@ var User = require('../../lib/model/user');
 describe('Item', function () {
     'use strict';
 
+    it('should require client', function () {
+        (function () {
+            new Item({itId: 1});
+        }).should.throwError('Client instance required');
+    });
+
     it('should return basic info', function () {
         var item = new Item({
             itId: 1,
             itName: 'test item'
-        });
+        }, {});
 
         item.id.should.equal(1);
         item.name.should.equal('test item');

@@ -61,7 +61,7 @@ describe('Client', function () {
         soap.createClient(__dirname + '/webapi.wsdl', function (err, soapClient) {
             var doLoginEncStub = sinon.stub(soapClient, 'doLoginEnc');
             doLoginEncStub.callsArgWith(1, null, {
-                'sessionHandlePart': 'qwe',
+                'sessionHandlePart': 'session1',
                 'userId': 1
             });
 
@@ -100,7 +100,7 @@ describe('Client', function () {
             var doLoginEncStub = sinon.stub(soapClient, 'doLoginEnc');
             doLoginEncStub.callsArgWith(1, null, {
                 sessionHandlePart: 'session1',
-                userId: 1
+                userId: 100
             });
 
             var doShowItemInfoExtStub = sinon.stub(soapClient, 'doShowItemInfoExt');
@@ -125,6 +125,81 @@ describe('Client', function () {
 
                 item.should.be.instanceOf(Item);
                 item.id.should.be.equal(2);
+                done();
+            });
+        });
+    });
+
+    it('should login user before getting category data', function (done) {
+        soap.createClient(__dirname + '/webapi.wsdl', function (err, soapClient) {
+            var doLoginEncStub = sinon.stub(soapClient, 'doLoginEnc');
+            doLoginEncStub.callsArgWith(1, null, {
+                'sessionHandlePart': 'session1',
+                'userId': 1
+            });
+
+            var doGetCategoryPathStub = sinon.stub(soapClient, 'doGetCategoryPath');
+            doGetCategoryPathStub.callsArgWith(1, null, {
+                categoryPath: [{ item: [{
+                        catId: 2,
+                        catName: 'Category'
+                    }]
+                }]
+                });
+
+            var client = new Client({
+                soapClient: soapClient,
+                key: 'key',
+                countryId: 1,
+                login: 'testuser',
+                password: 'password'
+            });
+
+            client.getCategory(2, function () {
+                doLoginEncStub.calledOnce.should.equal(true);
+                doLoginEncStub.calledWith({
+                    userLogin: 'testuser',
+                    userHashPassword: 'XohImNooBHFR0OVvjcYpJ3NgPQ1qq73WKhHvch0VQtg=',
+                    countryCode: 1,
+                    webapiKey: 'key',
+                    localVersion: '1377862002'
+                }).should.equal(true);
+                done();
+            });
+        });
+    });
+
+    it('should return category model by category id', function (done) {
+        soap.createClient(__dirname + '/webapi.wsdl', function (err, soapClient) {
+            var doLoginEncStub = sinon.stub(soapClient, 'doLoginEnc');
+            doLoginEncStub.callsArgWith(1, null, {
+                'sessionHandlePart': 'session1',
+                'userId': 1
+            });
+
+            var doGetCategoryPathStub = sinon.stub(soapClient, 'doGetCategoryPath');
+            doGetCategoryPathStub.callsArgWith(1, null, {
+                categoryPath: [{ item: [{
+                        catId: 2,
+                        catName: 'Category'
+                    }]
+                }]
+                });
+
+            var client = new Client({
+                soapClient: soapClient,
+                key: 'key',
+                countryId: 1,
+                login: 'testuser',
+                password: 'password'
+            });
+
+            client.getCategory(2, function () {
+                doGetCategoryPathStub.calledOnce.should.equal(true);
+                doGetCategoryPathStub.calledWith({
+                    sessionId: 'session1',
+                    categoryId: 2
+                }).should.equal(true);
                 done();
             });
         });
