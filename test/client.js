@@ -105,10 +105,7 @@ describe('Client', function () {
 
             var doShowItemInfoExtStub = sinon.stub(soapClient, 'doShowItemInfoExt');
             doShowItemInfoExtStub.callsArgWith(1, null, {
-                itemListInfoExt: {
-                    itId: 2,
-                    itName: 'Test item'
-                }
+                itemListInfoExt: {itId: 2}
             });
 
             var client = new Client({
@@ -128,7 +125,6 @@ describe('Client', function () {
 
                 item.should.be.instanceOf(Item);
                 item.id.should.be.equal(2);
-                item.name.should.be.equal('Test item');
                 done();
             });
         });
