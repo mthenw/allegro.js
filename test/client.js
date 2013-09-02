@@ -8,50 +8,22 @@ var Item = require('../lib/model/item');
 describe('Client', function () {
     'use strict';
 
-    it('should require soap instance in constructor', function () {
-        (function () {
-            new Client();
-        }).should.throwError('No soap client provided');
-    });
-
-    it('should require key in constructor', function () {
-        (function () {
-            new Client({
-                soapClient: {}
-            });
-        }).should.throwError('No api key provided');
-    });
-
-    it('should require country in constructor', function () {
-        (function () {
-            new Client({
-                soapClient: {},
-                key: 'key'
-            });
-        }).should.throwError('No country id provided');
-    });
-
     it('should return user model by user id', function (done) {
         soap.createClient(__dirname + '/webapi.wsdl', function (err, soapClient) {
             var doShowUserStub = sinon.stub(soapClient, 'doShowUser');
             doShowUserStub.callsArgWith(1, null, {userId: 1});
 
-            var client = new Client({soapClient: soapClient, key: 'key', countryId: 1});
+            var client = new Client({
+                soapClient: soapClient,
+                key: 'key',
+                countryId: 1,
+                login: 'login',
+                password: 'pass'
+            });
             client.getUser(1, function (err, user) {
                 doShowUserStub.calledOnce.should.equal(true);
                 user.should.be.an.instanceOf(User);
                 user.id.should.equal(1);
-                done();
-            });
-        });
-    });
-
-    it('should return an error if no credential passed when getting item data', function (done) {
-        soap.createClient(__dirname + '/webapi.wsdl', function (err, soapClient) {
-            var client = new Client({soapClient: soapClient, key: 'key', countryId: 1});
-            client.getItem(123, function (err) {
-                err.should.be.instanceOf(Error);
-                err.message.should.be.equal('Method requires session but no credential passed');
                 done();
             });
         });

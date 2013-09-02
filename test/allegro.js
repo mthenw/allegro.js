@@ -11,8 +11,25 @@ describe('Allegro', function () {
         });
     });
 
+    it('should return an error if no login provided for creating client', function () {
+        allegro.createClient({key: 'key'}, function (err) {
+            err.should.be.an.instanceOf(Error);
+        });
+    });
+
+    it('should return an error if no password provided for creating client', function () {
+        allegro.createClient({key: 'key', login: 'login'}, function (err) {
+            err.should.be.an.instanceOf(Error);
+        });
+    });
+
     it('should create client instance', function (done) {
-        allegro.createClient({key: 'key', wsdl: __dirname + '/webapi.wsdl'}, function (err, client) {
+        allegro.createClient({
+            key: 'key',
+            login: 'login',
+            password: 'password',
+            wsdl: __dirname + '/webapi.wsdl'
+        }, function (err, client) {
             client.should.be.an.instanceOf(Client);
             done();
         });
