@@ -176,4 +176,49 @@ describe('Client', function () {
             });
         });
     });
+
+    it('should emit event when somebody buy using "buy now"', function (done) {
+        var clock = sinon.useFakeTimers();
+        soap.createClient(__dirname + '/webapi.wsdl', function (err, soapClient) {
+            var doLoginEncStub = sinon.stub(soapClient, 'doLoginEnc');
+            doLoginEncStub.callsArgWith(1, null, {
+                'sessionHandlePart': 'session1',
+                'userId': 1
+            });
+
+            var doGetSiteJournalStub = sinon.stub(soapClient, 'doGetSiteJournal');
+            doGetSiteJournalStub.callsArgWith(1, null, {
+                siteJournalArray: [{
+                    item: [{
+                        rowId: 1,
+                        itemId: 2,
+                        changeType: 'now'
+                    }]
+                }]
+            });
+
+            var client = new Client({
+                soapClient: soapClient,
+                key: 'key',
+                countryId: 1,
+                login: 'testuser',
+                password: 'password'
+            });
+
+            client.on('buynow', function (itemId) {
+                doGetSiteJournalStub.calledOnce.should.equal(true);
+                doGetSiteJournalStub.calledWith({
+                    sessionHandle: 'session1',
+                    infoType: 1
+                }).should.equal(true);
+
+                itemId.should.equal(2);
+
+                done();
+            });
+
+            clock.tick(1000);
+            clock.restore();
+        });
+    });
 });
