@@ -4,7 +4,7 @@ var User = require('../../lib/model/user');
 describe('User', function () {
     'use strict';
 
-    it('should return basic info', function () {
+    it('should return basic info (id, login, rating, createdAt)', function () {
         var user = new User({
             userId: 1,
             userLogin: 'Test user',

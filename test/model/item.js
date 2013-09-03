@@ -12,7 +12,7 @@ describe('Item', function () {
         }).should.throwError('Client instance required');
     });
 
-    it('should return basic info', function () {
+    it('should return basic info (id, name, location)', function () {
         var item = new Item({
             itId: 1,
             itName: 'test item',
