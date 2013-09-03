@@ -249,4 +249,36 @@ describe('Client', function () {
             });
         });
     });
+
+    it('should login with password hash', function (done) {
+        soap.createClient(__dirname + '/webapi.wsdl', function (err, soapClient) {
+            var doLoginEncStub = sinon.stub(soapClient, 'doLoginEnc');
+            doLoginEncStub.callsArgWith(1, null, {
+                'sessionHandlePart': 'session1',
+                'userId': 1
+            });
+
+            var doShowItemInfoExtStub = sinon.stub(soapClient, 'doShowItemInfoExt');
+            doShowItemInfoExtStub.callsArgWith(1, null, {itemListInfoExt: {itId: 1, itName: 'Item'}});
+
+            var client = new Client({
+                soapClient: soapClient,
+                key: 'key',
+                countryId: 1,
+                login: 'testuser',
+                passwordHash: 'passwordHash'
+            });
+
+            client.getItem(1, function () {
+                doLoginEncStub.calledWith({
+                    userLogin: 'testuser',
+                    userHashPassword: 'passwordHash',
+                    countryCode: 1,
+                    webapiKey: 'key',
+                    localVersion: '1378200949'
+                }).should.equal(true);
+                done();
+            });
+        });
+    });
 });

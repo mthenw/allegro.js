@@ -31,7 +31,7 @@ Creates API client. Available options:
 
 * ```key``` - WebAPI key, can be generated in [My Allegro](http://allegro.pl/myaccount/webapi.php) (required),
 * ```countryId``` - country code, default: 1 (Poland)
-* ```login```, ```passwords``` - credentials are needed to call some of methods (I don't know why but even for those not related to My Allegro) so, in most cases you should provide them.
+* ```login```, ```passwords``` - credentials are needed to call some of methods (I don't know why but even for those not related to My Allegro) so, in most cases you should provide them. ```password``` can be replaced with ```passwordHash``` which is encoded in base64 sha-256 hash from password (base64(sha256(password))).
 
 Callback function gets two arguments:
 
