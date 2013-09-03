@@ -1,7 +1,8 @@
 # allegro.js
 
+Allegro.pl [WebAPI](http://allegro.pl/webapi/) client for Node.js.
 
-[![Build Status](https://travis-ci.org/mthenw/allegro.js.png)](https://travis-ci.org/mthenw/allegro.js)
+[![Build Status](https://travis-ci.org/mthenw/allegro.js.png)](https://travis-ci.org/mthenw/allegro.js) [![NPM version](https://badge.fury.io/js/allegro.png)](http://badge.fury.io/js/allegro)
 
 # Installation
 ```
@@ -20,7 +21,7 @@ allegro.createClient({ key: 'your_webapi_key'}, function (err, client) {
 });
 ```
 
-# Documentation
+# API
 
 ## allegro
 
@@ -30,21 +31,25 @@ Creates API client. Available options:
 
 * ```key``` - WebAPI key, can be generated in [My Allegro](http://allegro.pl/myaccount/webapi.php) (required),
 * ```countryId``` - country code, default: 1 (Poland)
-* ```login``` - user login, credentials are needed to call some of methods (I don't know why but even for those not related to My Allegro) so, in most cases you should provide them,
-* ```password``` - user password.
+* ```login```, ```passwords``` - credentials are needed to call some of methods (I don't know why but even for those not related to My Allegro) so, in most cases you should provide them.
 
-```callback``` gets two arguments:
+Callback function gets two arguments:
 
-* ```error``` - Error instance if error occured,
-* ```client``` - [Client](#client) instance
+* ```error``` - [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) instance if error occured,
+* ```client``` - [Client](#client) instance.
 
-#### Example
+Example:
 
 ```
 var allegro = require('allegro');
-var key = 'your_webapi_key';
 
-allegro.createClient({ key: 'your_webapi_key'}, function (error, client) {
+var options = {
+    key: 'your_webapi_key',
+    login: 'foo',
+    password: 'bar'
+};
+
+allegro.createClient(options, function (error, client) {
     ...
 });
 ```
@@ -53,9 +58,7 @@ allegro.createClient({ key: 'your_webapi_key'}, function (error, client) {
 
 ### getCategory(categoryId, callback)
 
-Get [Category](#category) instance by id and pass to callback.
-
-#### Example
+Get [Category](#category) instance. Example:
 
 ```
 allegro.createClient({ … }, function (error, client) {
@@ -68,9 +71,7 @@ allegro.createClient({ … }, function (error, client) {
 
 ### getItem(itemId, callback)
 
-Get [Item](#item) instance by id and pass to callback.
-
-#### Example
+Get [Item](#item) instance. Example:
 
 ```
 allegro.createClient({ … }, function (error, client) {
@@ -83,9 +84,7 @@ allegro.createClient({ … }, function (error, client) {
 
 ### getUser(userId, callback)
 
-Get [User](#user) instance by id and pass to callback.
-
-#### Example
+Get [User](#user) instance. Example:
 
 ```
 allegro.createClient({ … }, function (error, client) {
@@ -96,24 +95,37 @@ allegro.createClient({ … }, function (error, client) {
 
 ```
 
+### Events
+
+* **buynow** (itemId) - item is bought by 'Buy Now'. Example:
+
+```
+client.on('buynow', function (itemId) {
+    console.log('Getting item:' + itemId
+});
+```
 
 ## Category
 
-### Proporties:
+Returned by [```client.getCategory```](#getcategorycategoryid-callback).
+
+### Proporties
 
 * ```id``` int,
 * ```name``` string.
 
 ## Item
 
-### Proporties:
+Returned by [```client.getItem```](#getitemitemid-callback).
+
+### Proporties
 
 * ```id``` int,
 * ```name``` string.
 
-### Methods:
+### Methods
 
-* ```getSeller(callback)``` get [User](#user) instance of seller. ```callback``` gets error and [User](#user) instance. Example:
+* ```getSeller(callback)``` get [User](#user) instance of seller. Callback function gets [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) and [User](#user) instance. Example:
 
 ```
 allegro.createClient({ … }, function (error, client) {
@@ -125,11 +137,11 @@ allegro.createClient({ … }, function (error, client) {
 });
 ```
 
-
-
 ## User
 
-### Proporties:
+Returned by [```client.getUser```](#getuseruserid-callback).
+
+### Proporties
 
 * ```id``` int,
 * ```login``` string,
