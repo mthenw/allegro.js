@@ -221,4 +221,32 @@ describe('Client', function () {
             clock.restore();
         });
     });
+
+    it('should login only once for two calls', function (done) {
+        soap.createClient(__dirname + '/webapi.wsdl', function (err, soapClient) {
+            var doLoginEncStub = sinon.stub(soapClient, 'doLoginEnc');
+            doLoginEncStub.callsArgWith(1, null, {
+                'sessionHandlePart': 'session1',
+                'userId': 1
+            });
+
+            var doShowItemInfoExtStub = sinon.stub(soapClient, 'doShowItemInfoExt');
+            doShowItemInfoExtStub.callsArgWith(1, null, {itemListInfoExt: {itId: 1, itName: 'Item'}});
+
+            var client = new Client({
+                soapClient: soapClient,
+                key: 'key',
+                countryId: 1,
+                login: 'testuser',
+                password: 'password'
+            });
+
+            client.getItem(1, function () {
+                client.getItem(1, function () {
+                    doLoginEncStub.calledOnce.should.equal(true);
+                    done();
+                });
+            });
+        });
+    });
 });
