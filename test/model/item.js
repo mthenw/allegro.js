@@ -15,11 +15,13 @@ describe('Item', function () {
     it('should return basic info', function () {
         var item = new Item({
             itId: 1,
-            itName: 'test item'
+            itName: 'test item',
+            itLocation: 'Poznan'
         }, {});
 
         item.id.should.equal(1);
         item.name.should.equal('test item');
+        item.location.should.equal('Poznan');
     });
 
     it('should return user object on getting seller', function (done) {

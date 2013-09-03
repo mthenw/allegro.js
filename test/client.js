@@ -60,7 +60,7 @@ describe('Client', function () {
                     userHashPassword: 'XohImNooBHFR0OVvjcYpJ3NgPQ1qq73WKhHvch0VQtg=',
                     countryCode: 1,
                     webapiKey: 'key',
-                    localVersion: '1377862002'
+                    localVersion: '1378200949'
                 }).should.equal(true);
                 done();
             });
@@ -134,7 +134,7 @@ describe('Client', function () {
                     userHashPassword: 'XohImNooBHFR0OVvjcYpJ3NgPQ1qq73WKhHvch0VQtg=',
                     countryCode: 1,
                     webapiKey: 'key',
-                    localVersion: '1377862002'
+                    localVersion: '1378200949'
                 }).should.equal(true);
                 done();
             });
