@@ -31,12 +31,8 @@ describe('Client', function () {
 
     it('should login user before getting item data', function (done) {
         soap.createClient(__dirname + '/webapi.wsdl', function (err, soapClient) {
-            var doLoginEncStub = sinon.stub(soapClient, 'doLoginEnc');
-            doLoginEncStub.callsArgWith(1, null, {
-                'sessionHandlePart': 'session1',
-                'userId': 1
-            });
-
+            _getDoQuerySysStatusStub(soapClient);
+            var doLoginEncStub = _getDoLoginEncStub(soapClient);
             var doShowItemInfoExtStub = sinon.stub(soapClient, 'doShowItemInfoExt');
             doShowItemInfoExtStub.callsArgWith(1, null, {
                 itemListInfoExt: {
@@ -60,7 +56,7 @@ describe('Client', function () {
                     userHashPassword: 'XohImNooBHFR0OVvjcYpJ3NgPQ1qq73WKhHvch0VQtg=',
                     countryCode: 1,
                     webapiKey: 'key',
-                    localVersion: '1378200949'
+                    localVersion: 123456
                 }).should.equal(true);
                 done();
             });
@@ -69,12 +65,8 @@ describe('Client', function () {
 
     it('should return item model by item id', function (done) {
         soap.createClient(__dirname + '/webapi.wsdl', function (err, soapClient) {
-            var doLoginEncStub = sinon.stub(soapClient, 'doLoginEnc');
-            doLoginEncStub.callsArgWith(1, null, {
-                sessionHandlePart: 'session1',
-                userId: 100
-            });
-
+            _getDoQuerySysStatusStub(soapClient);
+            _getDoLoginEncStub(soapClient);
             var doShowItemInfoExtStub = sinon.stub(soapClient, 'doShowItemInfoExt');
             doShowItemInfoExtStub.callsArgWith(1, null, {
                 itemListInfoExt: {itId: 2}
@@ -104,12 +96,8 @@ describe('Client', function () {
 
     it('should login user before getting category data', function (done) {
         soap.createClient(__dirname + '/webapi.wsdl', function (err, soapClient) {
-            var doLoginEncStub = sinon.stub(soapClient, 'doLoginEnc');
-            doLoginEncStub.callsArgWith(1, null, {
-                'sessionHandlePart': 'session1',
-                'userId': 1
-            });
-
+            _getDoQuerySysStatusStub(soapClient);
+            var doLoginEncStub = _getDoLoginEncStub(soapClient);
             var doGetCategoryPathStub = sinon.stub(soapClient, 'doGetCategoryPath');
             doGetCategoryPathStub.callsArgWith(1, null, {
                 categoryPath: [{ item: [{
@@ -134,7 +122,7 @@ describe('Client', function () {
                     userHashPassword: 'XohImNooBHFR0OVvjcYpJ3NgPQ1qq73WKhHvch0VQtg=',
                     countryCode: 1,
                     webapiKey: 'key',
-                    localVersion: '1378200949'
+                    localVersion: 123456
                 }).should.equal(true);
                 done();
             });
@@ -143,12 +131,8 @@ describe('Client', function () {
 
     it('should return category model by category id', function (done) {
         soap.createClient(__dirname + '/webapi.wsdl', function (err, soapClient) {
-            var doLoginEncStub = sinon.stub(soapClient, 'doLoginEnc');
-            doLoginEncStub.callsArgWith(1, null, {
-                'sessionHandlePart': 'session1',
-                'userId': 1
-            });
-
+            _getDoQuerySysStatusStub(soapClient);
+            _getDoLoginEncStub(soapClient);
             var doGetCategoryPathStub = sinon.stub(soapClient, 'doGetCategoryPath');
             doGetCategoryPathStub.callsArgWith(1, null, {
                 categoryPath: [{ item: [{
@@ -180,12 +164,8 @@ describe('Client', function () {
     it('should emit event when somebody buy using "buy now"', function (done) {
         var clock = sinon.useFakeTimers();
         soap.createClient(__dirname + '/webapi.wsdl', function (err, soapClient) {
-            var doLoginEncStub = sinon.stub(soapClient, 'doLoginEnc');
-            doLoginEncStub.callsArgWith(1, null, {
-                'sessionHandlePart': 'session1',
-                'userId': 1
-            });
-
+            _getDoQuerySysStatusStub(soapClient);
+            _getDoLoginEncStub(soapClient);
             var doGetSiteJournalStub = sinon.stub(soapClient, 'doGetSiteJournal');
             doGetSiteJournalStub.callsArgWith(1, null, {
                 siteJournalArray: [{
@@ -224,12 +204,8 @@ describe('Client', function () {
 
     it('should login only once for two calls', function (done) {
         soap.createClient(__dirname + '/webapi.wsdl', function (err, soapClient) {
-            var doLoginEncStub = sinon.stub(soapClient, 'doLoginEnc');
-            doLoginEncStub.callsArgWith(1, null, {
-                'sessionHandlePart': 'session1',
-                'userId': 1
-            });
-
+            _getDoQuerySysStatusStub(soapClient);
+            var doLoginEncStub = _getDoLoginEncStub(soapClient);
             var doShowItemInfoExtStub = sinon.stub(soapClient, 'doShowItemInfoExt');
             doShowItemInfoExtStub.callsArgWith(1, null, {itemListInfoExt: {itId: 1, itName: 'Item'}});
 
@@ -252,12 +228,8 @@ describe('Client', function () {
 
     it('should login with password hash', function (done) {
         soap.createClient(__dirname + '/webapi.wsdl', function (err, soapClient) {
-            var doLoginEncStub = sinon.stub(soapClient, 'doLoginEnc');
-            doLoginEncStub.callsArgWith(1, null, {
-                'sessionHandlePart': 'session1',
-                'userId': 1
-            });
-
+            _getDoQuerySysStatusStub(soapClient);
+            var doLoginEncStub = _getDoLoginEncStub(soapClient);
             var doShowItemInfoExtStub = sinon.stub(soapClient, 'doShowItemInfoExt');
             doShowItemInfoExtStub.callsArgWith(1, null, {itemListInfoExt: {itId: 1, itName: 'Item'}});
 
@@ -275,10 +247,57 @@ describe('Client', function () {
                     userHashPassword: 'passwordHash',
                     countryCode: 1,
                     webapiKey: 'key',
-                    localVersion: '1378200949'
+                    localVersion: 123456
                 }).should.equal(true);
                 done();
             });
         });
     });
+
+    it('should get sys status before login', function (done) {
+        soap.createClient(__dirname + '/webapi.wsdl', function (err, soapClient) {
+            var doQuerySysStatusStub = _getDoQuerySysStatusStub(soapClient);
+            var doLoginEncStub = _getDoLoginEncStub(soapClient);
+            var doShowItemInfoExtStub = sinon.stub(soapClient, 'doShowItemInfoExt');
+            doShowItemInfoExtStub.callsArgWith(1, null, {itemListInfoExt: {itId: 1, itName: 'Item'}});
+
+            var client = new Client({
+                soapClient: soapClient,
+                key: 'key',
+                countryId: 1,
+                login: 'testuser',
+                passwordHash: 'passwordHash'
+            });
+
+            client.getItem(1, function () {
+                doQuerySysStatusStub.calledOnce.should.be.equal(true);
+                doLoginEncStub.calledWith({
+                    userLogin: 'testuser',
+                    userHashPassword: 'passwordHash',
+                    countryCode: 1,
+                    webapiKey: 'key',
+                    localVersion: 123456
+                }).should.equal(true);
+                done();
+            });
+        });
+    });
+
+    var _getDoQuerySysStatusStub = function (soapClient) {
+        var doQuerySysStatusStub = sinon.stub(soapClient, 'doQuerySysStatus');
+        doQuerySysStatusStub.callsArgWith(1, null, {
+            info: '1.0.0',
+            verKey: 123456
+        });
+        return doQuerySysStatusStub;
+    };
+
+    var _getDoLoginEncStub = function (soapClient) {
+        var doLoginEncStub = sinon.stub(soapClient, 'doLoginEnc');
+        doLoginEncStub.callsArgWith(1, null, {
+            'sessionHandlePart': 'session1',
+            'userId': 1
+        });
+        return doLoginEncStub;
+    };
 });
