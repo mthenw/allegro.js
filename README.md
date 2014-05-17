@@ -11,15 +11,7 @@ npm install allegro
 
 # Usage
 
-```
-var allegro = require('allegro');
-
-allegro.createClient({key: 'your_webapi_key'}, function (err, client) {
-    client.getUser(26729811, function (err, user) {
-        console.log(user.login);
-    });
-});
-```
+See [examples/](https://github.com/mthenw/allegro.js/tree/master/examples).
 
 # API
 
@@ -29,9 +21,9 @@ allegro.createClient({key: 'your_webapi_key'}, function (err, client) {
 
 Creates API client. Available options:
 
-* ```key``` - (required) WebAPI key, can be generated in [My Allegro](http://allegro.pl/myaccount/webapi.php),
-* ```login```, ```passwords``` or ```passwordHash``` - (required) credentials are needed to call some of methods (I don't know why but even for those not related to My Allegro). ```password``` can be replaced with ```passwordHash``` which is encoded in base64 sha-256 hash from password: (base64(sha256(password))).
-* ```countryId``` - country code, default: 1 (Poland)
+* ```key``` - **required** WebAPI key, can be generated in [My Allegro](http://allegro.pl/myaccount/webapi.php),
+* ```login```, ```passwords``` or ```passwordHash``` - **required** credentials are needed to call some of methods (I don't know why but even for those not related to My Allegro), so in general you should provide them. ```password``` can be replaced with ```passwordHash``` which is encoded in base64 sha-256 hash from password ```(base64(sha256(password)))```.
+* ```countryId``` - optional, country identifier, default: 1 (Poland)
 
 Callback function gets two arguments:
 
@@ -46,7 +38,7 @@ var allegro = require('allegro');
 var options = {
     key: 'your_webapi_key',
     login: 'foo',
-    password: 'bar'
+    passwordHash: 'bar'
 };
 
 allegro.createClient(options, function (error, client) {
@@ -101,7 +93,7 @@ allegro.createClient({ … }, function (error, client) {
 
 ```
 client.on('buynow', function (itemId) {
-    console.log('Getting item:' + itemId
+    console.log('Somebody just bought:' + itemId);
 });
 ```
 
