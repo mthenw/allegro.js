@@ -2,7 +2,7 @@
 
 Allegro.pl [WebAPI](http://allegro.pl/webapi/) client for Node.js.
 
-[![Build Status](https://travis-ci.org/mthenw/allegro.js.png)](https://travis-ci.org/mthenw/allegro.js) [![NPM version](https://badge.fury.io/js/allegro.png)](http://badge.fury.io/js/allegro)
+[![Build Status](https://travis-ci.org/mthenw/allegro.js.svg?branch=master)](https://travis-ci.org/mthenw/allegro.js) [![NPM version](https://badge.fury.io/js/allegro.png)](http://badge.fury.io/js/allegro)
 
 # Installation
 ```
@@ -31,7 +31,7 @@ Creates API client. Available options:
 
 * ```key``` - WebAPI key, can be generated in [My Allegro](http://allegro.pl/myaccount/webapi.php) (required),
 * ```countryId``` - country code, default: 1 (Poland)
-* ```login```, ```passwords``` - credentials are needed to call some of methods (I don't know why but even for those not related to My Allegro) so, in most cases you should provide them. ```password``` can be replaced with ```passwordHash``` which is encoded in base64 sha-256 hash from password (base64(sha256(password))).
+* ```login```, ```passwords``` - credentials are needed to call some of methods (I don't know why but even for those not related to My Allegro) so, in most cases you should provide them. ```password``` can be replaced with ```passwordHash``` which is encoded in base64 sha-256 hash from password: (base64(sha256(password))).
 
 Callback function gets two arguments:
 
@@ -109,7 +109,7 @@ client.on('buynow', function (itemId) {
 
 Returned by [```client.getCategory```](#getcategorycategoryid-callback).
 
-### Proporties
+### Properties
 
 * ```id``` int,
 * ```name``` string.
@@ -118,7 +118,7 @@ Returned by [```client.getCategory```](#getcategorycategoryid-callback).
 
 Returned by [```client.getItem```](#getitemitemid-callback).
 
-### Proporties
+### Properties
 
 * ```id``` int,
 * ```name``` string.
@@ -141,10 +141,10 @@ allegro.createClient({ … }, function (error, client) {
 
 Returned by [```client.getUser```](#getuseruserid-callback).
 
-### Proporties
+### Properties
 
 * ```id``` int,
 * ```login``` string,
 * ```rating``` int,
 * ```createdAt``` Date,
-* ```isAllegroStandrd``` bool.
+* ```isAllegroStandard``` bool.
