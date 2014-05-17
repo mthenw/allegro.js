@@ -1,9 +1,8 @@
+'use strict';
 require('should');
 var Category = require('../../lib/model/category');
 
 describe('Category', function () {
-    'use strict';
-
     it('should return basic info (id, name)', function () {
         var item = new Category({
             catId: 1,

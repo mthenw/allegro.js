@@ -1,11 +1,10 @@
+'use strict';
 require('should');
 var sinon = require('sinon');
 var Item = require('../../lib/model/item');
 var User = require('../../lib/model/user');
 
 describe('Item', function () {
-    'use strict';
-
     it('should require client', function () {
         (function () {
             new Item({itId: 1});

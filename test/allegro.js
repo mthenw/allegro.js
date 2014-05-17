@@ -1,10 +1,9 @@
+'use strict';
 require('should');
 var allegro = require('../lib/allegro');
 var Client = require('../lib/client');
 
 describe('Allegro', function () {
-    'use strict';
-
     it('should create client instance', function (done) {
         allegro.createClient({
             key: 'key',

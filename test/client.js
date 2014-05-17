@@ -1,3 +1,4 @@
+'use strict';
 require('should');
 var sinon = require('sinon');
 var soap = require('soap');
@@ -6,8 +7,6 @@ var User = require('../lib/model/user');
 var Item = require('../lib/model/item');
 
 describe('Client', function () {
-    'use strict';
-
     it('should return user model by user id', function (done) {
         soap.createClient(__dirname + '/webapi.wsdl', function (err, soapClient) {
             var doShowUserStub = sinon.stub(soapClient, 'doShowUser');
