@@ -2,7 +2,7 @@
 require('should');
 var User = require('../../lib/model/user');
 
-describe('User', function () {
+describe('User model', function () {
     it('should return basic info (id, login, rating, createdAt)', function () {
         var user = new User({
             userId: 1,

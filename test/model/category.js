@@ -2,7 +2,7 @@
 require('should');
 var Category = require('../../lib/model/category');
 
-describe('Category', function () {
+describe('Category model', function () {
     it('should return basic info (id, name)', function () {
         var item = new Category({
             catId: 1,

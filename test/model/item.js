@@ -4,7 +4,7 @@ var sinon = require('sinon');
 var Item = require('../../lib/model/item');
 var User = require('../../lib/model/user');
 
-describe('Item', function () {
+describe('Item model', function () {
     it('should require client', function () {
         (function () {
             new Item({itId: 1});
