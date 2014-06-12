@@ -3,7 +3,7 @@
     "version": "0.2.2",
     "description": "Allegro.pl WebAPI client",
     "keywords": [
-        "allegro", "api", "soap", "ecommerce"
+        "api", "webapi", "soap", "ecommerce", "allegro", "aukro", "molotok"
     ],
     "homepage": "https://github.com/mthenw/allegro.js",
     "author": "Maciej Winnicki <maciej.winnicki@gmail.com>",
