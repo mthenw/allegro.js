@@ -167,13 +167,13 @@ describe('Client', function () {
             _getDoLoginEncStub(soapClient);
             var doGetSiteJournalStub = sinon.stub(soapClient, 'doGetSiteJournal');
             doGetSiteJournalStub.callsArgWith(1, null, {
-                siteJournalArray: [{
+                siteJournalArray: {
                     item: [{
                         rowId: 1,
                         itemId: 2,
                         changeType: 'now'
                     }]
-                }]
+                }
             });
 
             var client = new Client({
