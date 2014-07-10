@@ -1,6 +1,6 @@
 {
     "name": "allegro",
-    "version": "0.2.2",
+    "version": "0.3.0",
     "description": "Allegro.pl WebAPI client",
     "keywords": [
         "api", "webapi", "soap", "ecommerce", "allegro", "aukro", "molotok"
