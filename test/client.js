@@ -1,7 +1,7 @@
 'use strict';
 require('should');
 var sinon = require('sinon');
-var soap = require('soap');
+var soap = require('soap-js');
 var Client = require('../lib/client');
 var User = require('../lib/model/user');
 var Item = require('../lib/model/item');
@@ -167,13 +167,13 @@ describe('Client', function () {
             _getDoLoginEncStub(soapClient);
             var doGetSiteJournalStub = sinon.stub(soapClient, 'doGetSiteJournal');
             doGetSiteJournalStub.callsArgWith(1, null, {
-                siteJournalArray: {
+                siteJournalArray: [{
                     item: [{
                         rowId: 1,
                         itemId: 2,
                         changeType: 'now'
                     }]
-                }
+                }]
             });
 
             var client = new Client({
