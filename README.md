@@ -55,7 +55,7 @@ Get [Category](#category) instance. Example:
 ```
 allegro.createClient({ … }, function (error, client) {
     client.getCategory(149, function (error, category) {
-        console.log(category.name); // 'Samochody' 
+        console.log(category.name); // 'Samochody'
     });
 });
 
@@ -68,7 +68,7 @@ Get [Item](#item) instance. Example:
 ```
 allegro.createClient({ … }, function (error, client) {
     client.getItem(3482560106, function (error, item) {
-        console.log(item.name); // 'IGŁA BMW E90' 
+        console.log(item.name); // 'IGŁA BMW E90'
     });
 });
 
@@ -81,7 +81,7 @@ Get [User](#user) instance. Example:
 ```
 allegro.createClient({ … }, function (error, client) {
     client.getUser(26729811, function (error, user) {
-        console.log(user.login); // 'stendi_pl' 
+        console.log(user.login); // 'stendi_pl'
     });
 });
 
@@ -104,7 +104,22 @@ Returned by [```client.getCategory```](#getcategorycategoryid-callback).
 ### Properties
 
 * ```id``` int,
-* ```name``` string.
+* ```name``` string,
+* ```parentId``` int.
+
+### Methods
+
+* ```getParent(callback)``` get [Category](#category) instance of parent. Callback function gets [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error) and [Category](#category) instance. Example:
+
+```
+allegro.createClient({ … }, function (err, client) {
+    client.getCategory(122234, function (err, category) {
+        category.getParent(function (err, category) {
+            console.log(category.name);
+        })
+    });
+});
+```
 
 ## Item
 
@@ -123,7 +138,7 @@ Returned by [```client.getItem```](#getitemitemid-callback).
 allegro.createClient({ … }, function (error, client) {
     client.getItem(3509260334, function (error, item) {
         item.getSeller(function(error, user) {
-            console.log(user.login); // 'stendi_pl' 
+            console.log(user.login); // 'stendi_pl'
         })
     });
 });
