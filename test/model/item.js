@@ -11,28 +11,40 @@ describe('Item model', function () {
         }).should.throwError('Client instance required');
     });
 
-    it('should return basic info (id, name, location)', function () {
+    it('should return basic info (id, name, location, image, status)', function () {
         var item = new Item({
-            itId: 1,
-            itName: 'test item',
-            itLocation: 'Poznan'
+            itemListInfoExt: {
+                itId: 1,
+                itName: 'test item',
+                itLocation: 'Poznan',
+                itIsNewUsed: 1
+            },
+            itemImgList: [{item: [null, null, {imageUrl: 'imageurl'}]}]
         }, {});
 
         item.id.should.equal(1);
         item.name.should.equal('test item');
         item.location.should.equal('Poznan');
+        item.mainImage.should.equal('imageurl');
+        item.isNew.should.equal(true);
+        item.isUsed.should.equal(false);
     });
 
     it('should return user object on getting seller', function (done) {
-        var client = { getUser: function () {} };
+        var client = {
+            getUser: function () {
+            }
+        };
         var clientStub = sinon.stub(client, 'getUser');
         clientStub.callsArgWith(1, null, new User({
             userId: 2
         }));
 
         var item = new Item({
-            itId: 1,
-            itSellerId: 2,
+            itemListInfoExt: {
+                itId: 1,
+                itSellerId: 2
+            }
         }, client);
 
         item.getSeller(function (err, user) {
