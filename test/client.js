@@ -83,7 +83,8 @@ describe('Client', function () {
                 doShowItemInfoExtStub.calledOnce.should.equal(true);
                 doShowItemInfoExtStub.calledWith({
                     sessionHandle: 'session1',
-                    itemId: 2
+                    itemId: 2,
+                    getImageUrl: 1
                 }).should.equal(true);
 
                 item.should.be.instanceOf(Item);
@@ -99,12 +100,13 @@ describe('Client', function () {
             var doLoginEncStub = _getDoLoginEncStub(soapClient);
             var doGetCategoryPathStub = sinon.stub(soapClient, 'doGetCategoryPath');
             doGetCategoryPathStub.callsArgWith(1, null, {
-                categoryPath: [{ item: [{
+                categoryPath: [{
+                    item: [{
                         catId: 2,
                         catName: 'Category'
                     }]
                 }]
-                });
+            });
 
             var client = new Client({
                 soapClient: soapClient,
@@ -134,12 +136,13 @@ describe('Client', function () {
             _getDoLoginEncStub(soapClient);
             var doGetCategoryPathStub = sinon.stub(soapClient, 'doGetCategoryPath');
             doGetCategoryPathStub.callsArgWith(1, null, {
-                categoryPath: [{ item: [{
+                categoryPath: [{
+                    item: [{
                         catId: 2,
                         catName: 'Category'
                     }]
                 }]
-                });
+            });
 
             var client = new Client({
                 soapClient: soapClient,
