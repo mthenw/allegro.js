@@ -129,7 +129,11 @@ Returned by [```client.getItem```](#getitemitemid-callback).
 ### Properties
 
 * ```id``` int,
-* ```name``` string.
+* ```name``` string,
+* ```location``` string,
+* ```mainImage``` string,
+* ```isNew``` boolean,
+* ```isUsed``` boolean.
 
 ### Methods
 
