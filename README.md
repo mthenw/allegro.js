@@ -2,7 +2,8 @@
 
 Allegro.pl [WebAPI](http://allegro.pl/webapi/) client for Node.js.
 
-[![Build Status](https://travis-ci.org/mthenw/allegro.js.svg?branch=master)](https://travis-ci.org/mthenw/allegro.js) [![NPM version](https://badge.fury.io/js/allegro.png)](http://badge.fury.io/js/allegro)
+[![Build Status](https://img.shields.io/travis/mthenw/allegro.js.svg?style=flat)](https://travis-ci.org/mthenw/allegro.js)
+[![Version](http://img.shields.io/npm/v/allegro.svg?style=flat)](https://www.npmjs.org/package/allegro)
 
 # Installation
 ```
